@@ -1,0 +1,5 @@
+flake8
+black
+pytest
+
+mmh3==2.5.1

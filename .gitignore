@@ -1,0 +1,9 @@
+# cache
+.pytest_cache
+__pycache__
+
+# ide
+.vscode
+
+# os
+.DS_Store

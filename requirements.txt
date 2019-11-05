@@ -1,5 +1,6 @@
 flake8
 black
 pytest
+hypothesis==4.43
 
 mmh3==2.5.1

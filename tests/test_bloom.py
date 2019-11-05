@@ -40,7 +40,7 @@ class TestFalseNegatives(TestCase):
 
     @given(
         st.lists(
-            st.characters(min_codepoint=0, max_codepoint=256),
+            st.characters(min_codepoint=0, max_codepoint=255),
             min_size=FILTER_SIZE,
             unique=True,
         )

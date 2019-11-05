@@ -6,7 +6,7 @@ force an error.
 """
 
 from unittest import TestCase
-from hypothesis import given
+from hypothesis import given, settings
 import hypothesis.strategies as st
 
 from bloom.bloom import BloomFilter
@@ -30,6 +30,7 @@ class TestFalseNegatives(TestCase):
         assert "new element" in self.filter
 
     @given(st.lists(st.integers(), min_size=FILTER_SIZE, unique=True))
+    @settings(max_examples=500)
     def test_integers(self, lst):
         for element in lst:
             self.filter.add(element)

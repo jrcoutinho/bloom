@@ -33,17 +33,17 @@ class BloomFilter:
         self._calculate_sizes()
 
         # memory initialization
-        self.memory = int(0)
+        self._memory = int(0)
 
     def add(self, element: Any) -> None:
         """Adds an element to the set, inplace."""
         for idx in self._hash_element(element):
-            self.memory |= 1 << idx
+            self._memory |= 1 << idx
 
     def __contains__(self, element: Any) -> bool:
         """Checks if an element is contained by the set."""
         return all(
-            (self.memory | (1 << idx)) == self.memory
+            (self._memory | (1 << idx)) == self._memory
             for idx in self._hash_element(element)
         )
 
@@ -85,6 +85,9 @@ class BloomFilter:
 
     def _hash_element(self, element: Any) -> Generator[int, None, None]:
         """Hash element using k hash functions, returning indices."""
+        if isinstance(element, int):
+            element = bin(element)
+
         h1, h2 = mmh3.hash64(element)
         indices = ((h1 + i * h2) % self._m + i * self._m for i in range(self._k))
 
@@ -92,4 +95,4 @@ class BloomFilter:
 
     def _clear(self) -> None:
         """Clears filter's memory"""
-        self.memory = int(0)
+        self._memory = int(0)
